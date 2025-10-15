@@ -73,43 +73,47 @@
     </div>
     <div class="container" id="mainContainer">
         <div class="mobile-toolbar" id="mobileToolbar" role="toolbar">
-            <button class="mobile-toolbar__button" id="mobileExploreButton" type="button" aria-label="探索雷达">
+            <button class="mobile-toolbar__button" id="mobileExploreButton" type="button" data-lang-key="explore_radar_label" aria-label="探索雷达">
                 <i class="fas fa-satellite-dish" aria-hidden="true"></i>
             </button>
-            <div class="mobile-toolbar__title" id="mobileToolbarTitle">Solara</div>
+            <div class="mobile-toolbar__title" id="mobileToolbarTitle" data-lang-key="solara_title">Solara</div>
             <div class="mobile-toolbar__actions">
-                <button class="mobile-toolbar__button" id="mobileSearchToggle" type="button" aria-label="打开搜索">
+                <button class="mobile-toolbar__button" id="mobileSearchToggle" type="button" data-lang-key="open_search_label" aria-label="打开搜索">
                     <i class="fas fa-search" aria-hidden="true"></i>
                 </button>
             </div>
         </div>
         <div class="header">
             <h1>Solara</h1>
-            <div class="warning">Made by Wet Dream Boy，免费API来自GD音乐台(music.gdstudio.xyz)，仅供学习交流使用，请支持正版音乐奥！</div>
+            <div class="warning" data-lang-key="made_by">Made by Wet Dream Boy，免费API来自GD音乐台(music.gdstudio.xyz)，仅供学习交流使用，请支持正版音乐奥！</div>
             <div class="theme-switch-wrapper">
-                <button id="themeToggleButton" class="theme-toggle-button" type="button" aria-label="切换深浅色模式">
+                <button id="themeToggleButton" class="theme-toggle-button" type="button" data-lang-key="toggle_theme_label" aria-label="切换深浅色模式">
                     <i class="fas fa-sun theme-icon theme-icon--sun" aria-hidden="true"></i>
                     <i class="fas fa-moon theme-icon theme-icon--moon" aria-hidden="true"></i>
                 </button>
             </div>
+            <div class="lang-switch-wrapper">
+                <button id="langEnButton" class="lang-switch-button" data-lang-key="lang_switch_en">English</button>
+                <button id="langZhTwButton" class="lang-switch-button" data-lang-key="lang_switch_zh-tw">繁體中文</button>
+            </div>
         </div>
 
         <div class="search-area" id="searchArea">
-            <button type="button" class="mobile-close-btn" id="mobileSearchClose" aria-label="关闭搜索">
+            <button type="button" class="mobile-close-btn" id="mobileSearchClose" data-lang-key="close_search_label" aria-label="关闭搜索">
                 <i class="fas fa-times" aria-hidden="true"></i>
             </button>
             <div class="search-container">
-                <input type="text" id="searchInput" class="search-input" placeholder="搜索歌曲、歌手或专辑...">
+                <input type="text" id="searchInput" class="search-input" placeholder="搜索歌曲、歌手或专辑..." data-lang-key="search_placeholder">
                 <div class="source-select-wrapper" id="sourceSelectWrapper">
                     <button id="sourceSelectButton" class="source-select-btn" type="button" aria-haspopup="listbox" aria-expanded="false">
-                        <span id="sourceSelectLabel">网易云音乐</span>
+                        <span id="sourceSelectLabel" data-lang-key="source_label_netease">网易云音乐</span>
                         <i class="fas fa-chevron-down caret-icon" aria-hidden="true"></i>
                     </button>
                     <div id="sourceMenu" class="source-menu" role="listbox" aria-labelledby="sourceSelectButton"></div>
                 </div>
                 <button id="searchBtn" class="search-btn">
                     <i class="fas fa-search"></i>
-                    <span>搜索</span>
+                    <span data-lang-key="search_button">搜索</span>
                 </button>
             </div>
             <div id="searchResults" class="search-results"></div>
@@ -129,17 +133,17 @@
                 <div class="mobile-inline-lyrics" id="mobileInlineLyrics" aria-hidden="true">
                     <div class="mobile-inline-lyrics__hint">
                         <i class="fas fa-arrow-left"></i>
-                        轻触返回封面
+                        <span data-lang-key="turntable_return_hint">轻触返回封面</span>
                     </div>
                     <div class="mobile-inline-lyrics__scroll" id="mobileInlineLyricsScroll">
                         <div class="mobile-inline-lyrics__content" id="mobileInlineLyricsContent"></div>
                     </div>
                 </div>
                 <div class="current-song-info">
-                    <div class="current-song-title" id="currentSongTitle">选择一首歌曲开始播放</div>
-                    <div class="current-song-artist" id="currentSongArtist">未知艺术家</div>
+                    <div class="current-song-title" id="currentSongTitle" data-lang-key="current_song_placeholder">选择一首歌曲开始播放</div>
+                    <div class="current-song-artist" id="currentSongArtist" data-lang-key="unknown_artist">未知艺术家</div>
                     <button class="mobile-quality-chip" id="mobileQualityToggle" type="button" aria-haspopup="menu" aria-expanded="false">
-                        <span id="mobileQualityLabel">极高音质</span>
+                        <span id="mobileQualityLabel" data-lang-key="quality_label_high">极高音质</span>
                         <i class="fas fa-chevron-down" aria-hidden="true"></i>
                     </button>
                 </div>
@@ -148,7 +152,7 @@
             <div class="mobile-panel" id="mobilePanel">
                 <div class="mobile-panel-header" id="mobilePanelHeader">
                     <div class="mobile-panel-handle" aria-hidden="true"></div>
-                    <div class="mobile-panel-title" id="mobilePanelTitle">播放列表</div>
+                    <div class="mobile-panel-title" id="mobilePanelTitle" data-lang-key="playlist_title">播放列表</div>
                     <div class="mobile-panel-actions">
                         <button
                             id="mobileClearPlaylistBtn"
@@ -158,18 +162,19 @@
                             title="清空播放列表"
                             onclick="clearPlaylist()"
                             hidden
+                            data-lang-key="clear_playlist_label"
                         >
                             <i class="fas fa-trash" aria-hidden="true"></i>
                         </button>
-                        <button id="mobilePanelClose" class="mobile-close-btn mobile-panel-action-btn" type="button" aria-label="收起播放面板">
+                        <button id="mobilePanelClose" class="mobile-close-btn mobile-panel-action-btn" type="button" aria-label="收起播放面板" data-lang-key="close_panel_label">
                             <i class="fas fa-chevron-down" aria-hidden="true"></i>
                         </button>
                     </div>
                 </div>
 
                 <div class="playlist active empty" id="playlist">
-                    <div class="playlist-label" aria-hidden="true">播放列表</div>
-                    <button class="clear-playlist-btn" id="clearPlaylistBtn" onclick="clearPlaylist()" title="清空播放列表">
+                    <div class="playlist-label" aria-hidden="true" data-lang-key="playlist_title">播放列表</div>
+                    <button class="clear-playlist-btn" id="clearPlaylistBtn" onclick="clearPlaylist()" title="清空播放列表" data-lang-key="clear_playlist_label">
                         <i class="fas fa-trash"></i>
                     </button>
                     <div class="playlist-scroll">
@@ -178,7 +183,7 @@
                 </div>
                 <div class="lyrics empty" id="lyrics" data-placeholder="default">
                     <div class="lyrics-scroll" id="lyricsScroll">
-                        <div class="lyrics-content" id="lyricsContent"></div>
+                        <div class="lyrics-content" id="lyricsContent" data-lang-key="lyrics_placeholder"></div>
                     </div>
                 </div>
             </div>
@@ -186,13 +191,13 @@
 
         <div class="controls">
             <div class="transport-controls">
-                <button class="play-mode-btn transport-button transport-button--mode" id="playModeBtn" type="button" title="播放模式">
+                <button class="play-mode-btn transport-button transport-button--mode" id="playModeBtn" type="button" title="播放模式" data-lang-key="play_mode_title">
                     <i class="fas fa-repeat"></i>
                 </button>
-                <button class="transport-button transport-button--prev" onclick="playPrevious()" type="button" title="上一曲"><i class="fas fa-backward-step"></i></button>
-                <button class="transport-button transport-button--play" id="playPauseBtn" type="button" title="播放 / 暂停"><i class="fas fa-play"></i></button>
-                <button class="transport-button transport-button--next" onclick="playNext()" type="button" title="下一曲"><i class="fas fa-forward-step"></i></button>
-                <button class="transport-button transport-button--queue" id="mobileQueueToggle" type="button" title="打开播放列表" aria-label="打开播放列表"><i class="fas fa-bars"></i></button>
+                <button class="transport-button transport-button--prev" onclick="playPrevious()" type="button" title="上一曲" data-lang-key="previous_track_title"><i class="fas fa-backward-step"></i></button>
+                <button class="transport-button transport-button--play" id="playPauseBtn" type="button" title="播放 / 暂停" data-lang-key="play_pause_title"><i class="fas fa-play"></i></button>
+                <button class="transport-button transport-button--next" onclick="playNext()" type="button" title="下一曲" data-lang-key="next_track_title"><i class="fas fa-forward-step"></i></button>
+                <button class="transport-button transport-button--queue" id="mobileQueueToggle" type="button" title="打开播放列表" aria-label="打开播放列表" data-lang-key="toggle_playlist_label"><i class="fas fa-bars"></i></button>
             </div>
             <div class="progress-container">
                 <span id="currentTimeDisplay">00:00</span>
@@ -202,7 +207,7 @@
             <div class="audio-tools">
                 <div class="player-quality">
                     <button id="qualityToggle" class="player-quality-btn" type="button">
-                        <span id="qualityLabel">极高音质</span>
+                        <span id="qualityLabel" data-lang-key="quality_label_high">极高音质</span>
                     </button>
                     <div id="playerQualityMenu" class="player-quality-menu"></div>
                 </div>
@@ -211,8 +216,8 @@
                     <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.8">
                 </div>
             </div>
-            <button id="loadOnlineBtn" title="聚合所有雷达，探索新音乐">
-                <span class="btn-text"><i class="fas fa-satellite-dish"></i> 探索雷达</span>
+            <button id="loadOnlineBtn" title="聚合所有雷达，探索新音乐" data-lang-key="explore_new_music_title">
+                <span class="btn-text"><i class="fas fa-satellite-dish"></i> <span data-lang-key="explore_radar_button">探索雷达</span></span>
                 <span class="loader" style="display: none;"></span>
             </button>
         </div>
@@ -229,6 +234,7 @@
 <div id="debugInfo" class="debug-info"></div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="js/i18n.js"></script>
 <script src="js/index.js"></script>
 <script>
     if (window.__SOLARA_IS_MOBILE) {

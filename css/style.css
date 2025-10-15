@@ -183,6 +183,31 @@ body.background-transitioning .background-stage__layer--transition {
     font-style: italic; 
 }
 
+.lang-switch-wrapper {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    gap: 8px;
+}
+
+.lang-switch-button {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary-color);
+    padding: 6px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 12px;
+}
+
+.lang-switch-button:hover {
+    background: var(--item-hover-bg);
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
 /* 搜索区域样式 - 增强动效 */
 .search-area {
     grid-area: search;

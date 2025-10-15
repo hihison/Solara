@@ -50,11 +50,51 @@ const dom = {
     mobilePanelTitle: document.getElementById("mobilePanelTitle"),
     mobileQueueToggle: document.getElementById("mobileQueueToggle"),
     searchArea: document.getElementById("searchArea"),
+    langEnButton: document.getElementById("langEnButton"),
+    langZhTwButton: document.getElementById("langZhTwButton"),
 };
 
 window.SolaraDom = dom;
 
 const isMobileView = Boolean(window.__SOLARA_IS_MOBILE);
+
+function setLanguage(lang) {
+    document.documentElement.lang = lang === 'zh-tw' ? 'zh-Hant' : lang;
+    const elements = document.querySelectorAll('[data-lang-key]');
+    elements.forEach(element => {
+        const key = element.getAttribute('data-lang-key');
+        if (translations[lang] && translations[lang][key]) {
+            const translation = translations[lang][key];
+
+            const textNode = Array.from(element.childNodes).find(node => node.nodeType === Node.TEXT_NODE && node.textContent.trim().length > 0);
+
+            if (element.hasAttribute('placeholder')) {
+                element.placeholder = translation;
+            } else if (element.hasAttribute('title')) {
+                element.title = translation;
+            } else if (element.hasAttribute('aria-label')) {
+                element.setAttribute('aria-label', translation);
+            } else if (textNode) {
+                textNode.textContent = translation;
+            } else {
+                element.textContent = translation;
+            }
+        }
+    });
+    localStorage.setItem('language', lang);
+}
+
+function initializeLanguage() {
+    const savedLang = localStorage.getItem('language') || 'zh-tw';
+    setLanguage(savedLang);
+}
+
+if (dom.langEnButton) {
+    dom.langEnButton.addEventListener('click', () => setLanguage('en'));
+}
+if (dom.langZhTwButton) {
+    dom.langZhTwButton.addEventListener('click', () => setLanguage('zh-tw'));
+}
 
 const mobileBridge = window.SolaraMobileBridge || {};
 mobileBridge.handlers = mobileBridge.handlers || {};
@@ -186,6 +226,13 @@ function closeAllMobileOverlays() {
     });
     return result;
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+    initializeLanguage();
+    loadStoredPalettes();
+    initializeTheme();
+    // 其他初始化代码...
+});
 
 function updateMobileInlineLyricsAria(isOpen) {
     if (!dom.mobileInlineLyrics) {
