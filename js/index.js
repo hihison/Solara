@@ -1516,7 +1516,7 @@ function buildSourceMenu() {
         const isActive = option.value === state.searchSource;
         return `
             <div class="source-option${isActive ? " active" : ""}" data-source="${option.value}" role="option" aria-selected="${isActive}">
-                <span>${option.label}</span>
+                <span>${getTranslation(option.langKey)}</span>
                 ${isActive ? '<i class="fas fa-check" aria-hidden="true"></i>' : ""}
             </div>
         `;
@@ -1530,11 +1530,11 @@ function buildSourceMenu() {
 function updateSourceLabel() {
     const option = SOURCE_OPTIONS.find(item => item.value === state.searchSource) || SOURCE_OPTIONS[0];
     if (!option || !dom.sourceSelectLabel || !dom.sourceSelectButton) return;
-    dom.sourceSelectLabel.textContent = option.label;
+    dom.sourceSelectLabel.textContent = getTranslation(option.langKey);
     dom.sourceSelectButton.dataset.source = option.value;
     dom.sourceSelectButton.setAttribute("aria-expanded", state.sourceMenuOpen ? "true" : "false");
-    dom.sourceSelectButton.setAttribute("aria-label", `当前音源：${option.label}，点击切换音源`);
-    dom.sourceSelectButton.setAttribute("title", `音源：${option.label}`);
+    dom.sourceSelectButton.setAttribute("aria-label", `${getTranslation('current_source')}: ${getTranslation(option.langKey)}, ${getTranslation('click_to_switch')}`);
+    dom.sourceSelectButton.setAttribute("title", `${getTranslation('source')}: ${getTranslation(option.langKey)}`);
 }
 
 function updateSourceMenuPosition() {
@@ -1645,7 +1645,7 @@ function buildQualityMenu() {
         const isActive = option.value === state.playbackQuality;
         return `
             <div class="player-quality-option${isActive ? " active" : ""}" data-quality="${option.value}">
-                <span>${option.label}</span>
+                <span>${getTranslation(option.langKey)}</span>
                 <small>${option.description}</small>
             </div>
         `;
@@ -1695,13 +1695,13 @@ function getQualityMenuAnchor() {
 function updateQualityLabel() {
     const option = QUALITY_OPTIONS.find(item => item.value === state.playbackQuality) || QUALITY_OPTIONS[0];
     if (!option) return;
-    dom.qualityLabel.textContent = option.label;
-    dom.qualityToggle.title = `音质: ${option.label} (${option.description})`;
+    dom.qualityLabel.textContent = getTranslation(option.langKey);
+    dom.qualityToggle.title = `${getTranslation('quality')}: ${getTranslation(option.langKey)} (${option.description})`;
     if (dom.mobileQualityLabel) {
-        dom.mobileQualityLabel.textContent = option.label;
+        dom.mobileQualityLabel.textContent = getTranslation(option.langKey);
     }
     if (dom.mobileQualityToggle) {
-        dom.mobileQualityToggle.title = `音质: ${option.label} (${option.description})`;
+        dom.mobileQualityToggle.title = `${getTranslation('quality')}: ${getTranslation(option.langKey)} (${option.description})`;
     }
 }
 
@@ -1897,13 +1897,13 @@ async function selectPlaybackQuality(quality) {
 
     const option = QUALITY_OPTIONS.find(item => item.value === normalized);
     if (option) {
-        showNotification(`音质已切换为 ${option.label} (${option.description})`);
+        showNotification(`${getTranslation('quality_switched_to')} ${getTranslation(option.langKey)} (${option.description})`);
     }
 
     if (state.currentSong) {
         const success = await reloadCurrentSong();
         if (!success) {
-            showNotification("切换音质失败，请稍后重试", "error");
+            showNotification(getTranslation('quality_switch_failed'), "error");
         }
     }
 }

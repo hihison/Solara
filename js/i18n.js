@@ -33,6 +33,12 @@ const translations = {
         'quality_192': 'High',
         'quality_320': 'Super High',
         'quality_999': 'Lossless',
+        'current_source': 'Current Source',
+        'click_to_switch': 'click to switch source',
+        'source': 'Source',
+        'quality': 'Quality',
+        'quality_switched_to': 'Quality switched to',
+        'quality_switch_failed': 'Failed to switch quality, please try again later',
     },
     'zh-tw': {
         'solara_title': 'Solara',
@@ -68,5 +74,11 @@ const translations = {
         'quality_192': '高品音質',
         'quality_320': '極高音質',
         'quality_999': '無損音質',
+        'current_source': '目前音源',
+        'click_to_switch': '點擊切換音源',
+        'source': '音源',
+        'quality': '音質',
+        'quality_switched_to': '音質已切換為',
+        'quality_switch_failed': '切換音質失敗，請稍後重試',
     }
 };
