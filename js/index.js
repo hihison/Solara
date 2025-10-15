@@ -118,6 +118,18 @@ function setLanguage(lang) {
     const elements = document.querySelectorAll('[data-lang-key]');
     elements.forEach(element => {
         const key = element.getAttribute('data-lang-key');
+        
+        // Skip updating dynamic content elements when they contain actual data
+        if (key === 'current_song_placeholder' && state.currentSong) {
+            return; // Skip if a song is currently playing
+        }
+        if (key === 'unknown_artist' && state.currentSong) {
+            return; // Skip if a song is currently playing
+        }
+        if (key === 'lyrics_placeholder' && state.lyricsData && state.lyricsData.length > 0) {
+            return; // Skip if lyrics are loaded
+        }
+        
         if (translations[lang] && translations[lang][key]) {
             const translation = translations[lang][key];
 
@@ -2311,7 +2323,7 @@ function updateCurrentSongInfo(song, options = {}) {
     updateMobileToolbarTitle();
 
     // 修复艺人名称显示问题 - 使用正确的字段名
-    const artistText = Array.isArray(song.artist) ? song.artist.join(', ') : (song.artist || '未知艺术家');
+    const artistText = Array.isArray(song.artist) ? song.artist.join(', ') : (song.artist || getTranslation('unknown_artist'));
     dom.currentSongArtist.textContent = artistText;
 
     cancelDeferredPaletteUpdate();
@@ -2506,13 +2518,13 @@ function createSearchResultItem(song, index) {
 
     const title = document.createElement("div");
     title.className = "search-result-title";
-    title.textContent = song.name || "未知歌曲";
+    title.textContent = song.name || getTranslation('unknown_song');
 
     const artist = document.createElement("div");
     artist.className = "search-result-artist";
     const artistName = Array.isArray(song.artist)
         ? song.artist.join(', ')
-        : (song.artist || "未知艺术家");
+        : (song.artist || getTranslation('unknown_artist'));
     const albumText = song.album ? ` - ${song.album}` : "";
     artist.textContent = `${artistName}${albumText}`;
 
@@ -2801,9 +2813,9 @@ function removeFromPlaylist(index) {
             dom.currentTimeDisplay.textContent = "00:00";
             dom.durationDisplay.textContent = "00:00";
             updateProgressBarBackground(0, 1);
-            dom.currentSongTitle.textContent = "选择一首歌曲开始播放";
+            dom.currentSongTitle.textContent = getTranslation('current_song_placeholder');
             updateMobileToolbarTitle();
-            dom.currentSongArtist.textContent = "未知艺术家";
+            dom.currentSongArtist.textContent = getTranslation('unknown_artist');
             showAlbumCoverPlaceholder();
             clearLyricsContent();
             if (dom.lyrics) {
@@ -2864,9 +2876,9 @@ function clearPlaylist() {
         dom.currentTimeDisplay.textContent = "00:00";
         dom.durationDisplay.textContent = "00:00";
         updateProgressBarBackground(0, 1);
-        dom.currentSongTitle.textContent = "选择一首歌曲开始播放";
+        dom.currentSongTitle.textContent = getTranslation('current_song_placeholder');
         updateMobileToolbarTitle();
-        dom.currentSongArtist.textContent = "未知艺术家";
+        dom.currentSongArtist.textContent = getTranslation('unknown_artist');
         showAlbumCoverPlaceholder();
         clearLyricsContent();
         if (dom.lyrics) {
