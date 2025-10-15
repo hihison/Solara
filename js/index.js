@@ -2537,14 +2537,21 @@ function createSearchResultItem(song, index) {
     const playButton = document.createElement("button");
     playButton.className = "action-btn play";
     playButton.type = "button";
-    playButton.title = "播放";
-    playButton.innerHTML = '<i class="fas fa-play"></i> 播放';
+    playButton.title = getTranslation('play_button');
+    playButton.innerHTML = `<i class="fas fa-play"></i> ${getTranslation('play_button')}`;
     playButton.addEventListener("click", () => playSearchResult(index));
+
+    const addToPlaylistButton = document.createElement("button");
+    addToPlaylistButton.className = "action-btn add-to-playlist";
+    addToPlaylistButton.type = "button";
+    addToPlaylistButton.title = getTranslation('add_to_playlist');
+    addToPlaylistButton.innerHTML = `<i class="fas fa-plus"></i> ${getTranslation('add_to_playlist')}`;
+    addToPlaylistButton.addEventListener("click", () => addSearchResultToPlaylist(index));
 
     const downloadButton = document.createElement("button");
     downloadButton.className = "action-btn download";
     downloadButton.type = "button";
-    downloadButton.title = "下载";
+    downloadButton.title = getTranslation('download_button');
     downloadButton.innerHTML = '<i class="fas fa-download"></i>';
     downloadButton.addEventListener("click", (event) => {
         showQualityMenu(event, index, "search");
@@ -2554,16 +2561,16 @@ function createSearchResultItem(song, index) {
     qualityMenu.className = "quality-menu";
 
     const qualityOptions = [
-        { label: "标准音质", suffix: " (128k)", quality: "128" },
-        { label: "高音质", suffix: " (192k)", quality: "192" },
-        { label: "超高音质", suffix: " (320k)", quality: "320" },
-        { label: "无损音质", suffix: "", quality: "999" },
+        { langKey: "quality_128", suffix: " (128k)", quality: "128" },
+        { langKey: "quality_192", suffix: " (192k)", quality: "192" },
+        { langKey: "quality_320", suffix: " (320k)", quality: "320" },
+        { langKey: "quality_999", suffix: "", quality: "999" },
     ];
 
     qualityOptions.forEach(option => {
         const qualityItem = document.createElement("div");
         qualityItem.className = "quality-option";
-        qualityItem.textContent = `${option.label}${option.suffix}`;
+        qualityItem.textContent = `${getTranslation(option.langKey)}${option.suffix}`;
         qualityItem.addEventListener("click", (event) => {
             downloadWithQuality(event, index, "search", option.quality);
         });
@@ -2573,6 +2580,7 @@ function createSearchResultItem(song, index) {
     downloadButton.appendChild(qualityMenu);
 
     actions.appendChild(playButton);
+    actions.appendChild(addToPlaylistButton);
     actions.appendChild(downloadButton);
 
     item.appendChild(info);
@@ -2760,6 +2768,39 @@ async function playSearchResult(index) {
         showNotification("播放失败，请稍后重试", "error");
     }
 }
+
+// Add search result to playlist without playing
+function addSearchResultToPlaylist(index) {
+    const song = state.searchResults[index];
+    if (!song) return;
+
+    try {
+        // Check if the song is already in the playlist
+        const existingIndex = state.playlistSongs.findIndex(s => s.id === song.id && s.source === song.source);
+
+        if (existingIndex !== -1) {
+            // Song already exists in playlist
+            showNotification(getTranslation('song_already_in_playlist'), "warning");
+            return;
+        }
+
+        // Add song to playlist
+        state.playlistSongs.push(song);
+        
+        // Update playlist display
+        renderPlaylist();
+        
+        // Save playlist state
+        savePlayerState();
+
+        showNotification(getTranslation('song_added_to_playlist'), "success");
+
+    } catch (error) {
+        console.error("添加到播放列表失败:", error);
+        showNotification(getTranslation('add_to_playlist_failed'), "error");
+    }
+}
+
 
 // 新增：渲染统一播放列表
 function renderPlaylist() {

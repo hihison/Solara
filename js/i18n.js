@@ -40,6 +40,12 @@ const translations = {
         'quality': 'Quality',
         'quality_switched_to': 'Quality switched to',
         'quality_switch_failed': 'Failed to switch quality, please try again later',
+        'add_to_playlist': 'Add to Playlist',
+        'play_button': 'Play',
+        'download_button': 'Download',
+        'song_added_to_playlist': 'Song added to playlist',
+        'song_already_in_playlist': 'Song is already in playlist',
+        'add_to_playlist_failed': 'Failed to add to playlist',
     },
     'zh-tw': {
         'solara_title': 'Solara',
@@ -82,5 +88,11 @@ const translations = {
         'quality': '音質',
         'quality_switched_to': '音質已切換為',
         'quality_switch_failed': '切換音質失敗，請稍後重試',
+        'add_to_playlist': '加入播放清單',
+        'play_button': '播放',
+        'download_button': '下載',
+        'song_added_to_playlist': '歌曲已加入播放清單',
+        'song_already_in_playlist': '歌曲已在播放清單中',
+        'add_to_playlist_failed': '加入播放清單失敗',
     }
 };
