@@ -414,6 +414,26 @@ body.background-transitioning .background-stage__layer--transition {
     transform: none;
 }
 
+.close-search-results-btn {
+    background: var(--warning-color);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 12px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.2s ease;
+    display: none;
+    align-items: center;
+    gap: 8px;
+    margin-left: 10px;
+}
+
+.close-search-results-btn:hover {
+    background: #c0392b;
+    transform: translateY(-1px);
+}
+
 /* 搜索结果区域 - 增强动效 */
 .search-results {
     max-height: 0;

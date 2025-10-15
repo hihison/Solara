@@ -46,6 +46,7 @@ const translations = {
         'song_added_to_playlist': 'Song added to playlist',
         'song_already_in_playlist': 'Song is already in playlist',
         'add_to_playlist_failed': 'Failed to add to playlist',
+        'close_search_results': 'Close Search Results',
     },
     'zh-tw': {
         'solara_title': 'Solara',
@@ -94,5 +95,6 @@ const translations = {
         'song_added_to_playlist': '歌曲已加入播放清單',
         'song_already_in_playlist': '歌曲已在播放清單中',
         'add_to_playlist_failed': '加入播放清單失敗',
+        'close_search_results': '關閉搜索結果',
     }
 };

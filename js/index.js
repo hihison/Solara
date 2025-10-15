@@ -52,6 +52,7 @@ const dom = {
     searchArea: document.getElementById("searchArea"),
     langEnButton: document.getElementById("langEnButton"),
     langZhTwButton: document.getElementById("langZhTwButton"),
+    closeSearchResultsBtn: document.getElementById("closeSearchResultsBtn"),
 };
 
 window.SolaraDom = dom;
@@ -1306,6 +1307,10 @@ function showSearchResults() {
     if (state.qualityMenuOpen) {
         schedulePlayerQualityMenuPositionUpdate();
     }
+    // Show close button
+    if (dom.closeSearchResultsBtn) {
+        dom.closeSearchResultsBtn.style.display = 'flex';
+    }
 }
 
 // 新增：隐藏搜索结果 - 优化立即收起
@@ -1320,6 +1325,10 @@ function hideSearchResults() {
     // 立即清空搜索结果内容
     dom.searchResults.innerHTML = "";
     state.renderedSearchCount = 0;
+    // Hide close button
+    if (dom.closeSearchResultsBtn) {
+        dom.closeSearchResultsBtn.style.display = 'none';
+    }
 }
 
 const playModeTexts = {
@@ -2176,6 +2185,15 @@ function setupInteractions() {
             performSearch();
         }
     });
+
+    // Close search results button event
+    if (dom.closeSearchResultsBtn) {
+        dom.closeSearchResultsBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            hideSearchResults();
+        });
+    }
 
     // 修复：点击搜索区域外部时隐藏搜索结果
     document.addEventListener("click", (e) => {
