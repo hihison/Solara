@@ -183,10 +183,16 @@ body.background-transitioning .background-stage__layer--transition {
     font-style: italic; 
 }
 
-.lang-switch-wrapper {
+.header-actions {
     position: absolute;
     top: 0;
     right: 0;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.lang-switch-wrapper {
     display: flex;
     gap: 8px;
 }

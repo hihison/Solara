@@ -58,6 +58,61 @@ window.SolaraDom = dom;
 
 const isMobileView = Boolean(window.__SOLARA_IS_MOBILE);
 
+function getTranslation(key) {
+    const lang = localStorage.getItem('language') || 'zh-tw';
+    return (translations[lang] && translations[lang][key]) || key;
+}
+
+function updateSourceMenu() {
+    if (!dom.sourceMenu) return;
+
+    const currentSource = state.searchSource;
+    const sourceOption = SOURCE_OPTIONS.find(opt => opt.value === currentSource);
+    const sourceLabel = sourceOption ? getTranslation(sourceOption.langKey) : "N/A";
+
+    if (dom.sourceSelectLabel) {
+        dom.sourceSelectLabel.textContent = sourceLabel;
+    }
+
+    const itemsHtml = SOURCE_OPTIONS.map(option => `
+        <li role="menuitemradio" 
+            aria-checked="${option.value === currentSource}" 
+            class="${option.value === currentSource ? 'active' : ''}"
+            data-value="${option.value}">
+            ${getTranslation(option.langKey)}
+        </li>
+    `).join('');
+
+    dom.sourceMenu.innerHTML = itemsHtml;
+}
+
+function updatePlayerQualityMenu() {
+    if (!dom.playerQualityMenu) return;
+
+    const currentQuality = state.playbackQuality;
+    const qualityOption = QUALITY_OPTIONS.find(opt => opt.value === currentQuality);
+    const qualityLabel = qualityOption ? getTranslation(qualityOption.langKey) : "N/A";
+
+    if (dom.qualityLabel) {
+        dom.qualityLabel.textContent = qualityLabel;
+    }
+    if (dom.mobileQualityLabel) {
+        dom.mobileQualityLabel.textContent = qualityLabel;
+    }
+
+    const itemsHtml = QUALITY_OPTIONS.map(option => `
+        <li role="menuitemradio" 
+            aria-checked="${option.value === currentQuality}" 
+            class="${option.value === currentQuality ? 'active' : ''}"
+            data-value="${option.value}">
+            <span class="label">${getTranslation(option.langKey)}</span>
+            <span class="description">${option.description}</span>
+        </li>
+    `).join('');
+
+    dom.playerQualityMenu.innerHTML = itemsHtml;
+}
+
 function setLanguage(lang) {
     document.documentElement.lang = lang === 'zh-tw' ? 'zh-Hant' : lang;
     const elements = document.querySelectorAll('[data-lang-key]');
@@ -82,11 +137,15 @@ function setLanguage(lang) {
         }
     });
     localStorage.setItem('language', lang);
+    updateSourceMenu();
+    updatePlayerQualityMenu();
 }
 
 function initializeLanguage() {
     const savedLang = localStorage.getItem('language') || 'zh-tw';
     setLanguage(savedLang);
+    updateSourceMenu();
+    updatePlayerQualityMenu();
 }
 
 if (dom.langEnButton) {
@@ -436,9 +495,9 @@ function buildAudioProxyUrl(url) {
 }
 
 const SOURCE_OPTIONS = [
-    { value: "netease", label: "网易云音乐" },
-    { value: "kuwo", label: "酷我音乐" },
-    { value: "joox", label: "JOOX音乐" }
+    { value: "netease", langKey: "source_netease" },
+    { value: "kuwo", langKey: "source_kuwo" },
+    { value: "joox", langKey: "source_joox" }
 ];
 
 function normalizeSource(value) {
@@ -447,10 +506,10 @@ function normalizeSource(value) {
 }
 
 const QUALITY_OPTIONS = [
-    { value: "128", label: "标准音质", description: "128 kbps" },
-    { value: "192", label: "高品音质", description: "192 kbps" },
-    { value: "320", label: "极高音质", description: "320 kbps" },
-    { value: "999", label: "无损音质", description: "FLAC" }
+    { value: "128", langKey: "quality_128", description: "128 kbps" },
+    { value: "192", langKey: "quality_192", description: "192 kbps" },
+    { value: "320", langKey: "quality_320", description: "320 kbps" },
+    { value: "999", langKey: "quality_999", description: "FLAC" }
 ];
 
 function normalizeQuality(value) {
