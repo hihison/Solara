@@ -1,0 +1,48 @@
+{
+  "name": "Solara Music Player",
+  "short_name": "Solara",
+  "description": "A beautiful online music player with search, playlist, and lyrics support",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#0f0f0f",
+  "theme_color": "#1abc9c",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "favicon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "favicon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["music", "entertainment"],
+  "screenshots": [
+    {
+      "src": "Preview.gif",
+      "sizes": "1200x675",
+      "type": "image/gif"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Search Music",
+      "short_name": "Search",
+      "description": "Search for songs",
+      "url": "/index.html?action=search",
+      "icons": [{ "src": "favicon.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Explore Radar",
+      "short_name": "Explore",
+      "description": "Explore new music",
+      "url": "/index.html?action=explore",
+      "icons": [{ "src": "favicon.png", "sizes": "192x192" }]
+    }
+  ]
+}
